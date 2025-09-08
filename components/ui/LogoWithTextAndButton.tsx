@@ -18,16 +18,13 @@ export default function LogoWithTextAndButton({ LogoImage, firstText, secondText
             </div>
             {/* Username and rank */}
             <div className="flex flex-col justify-center items-start">
-              <h1 className="text-white text-xl">{firstText}</h1>
+              <h1 className="text-white text-md">{firstText}</h1>
               <p className="text-gray-400 text-sm">{secondText}</p>
             </div>
           </div>
           {/* Button */}
           <div className="flex flex-row justify-end items-center">
             {Button}
-            {/* <button className="bg-transparent border-red-500 border-2 rounded-xl text-md text-white px-4 py-2 font-bold">
-              <p>26,031</p>
-            </button> */}
           </div>
       </div>
     )
