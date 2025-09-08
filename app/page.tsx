@@ -2,6 +2,7 @@
 
 import LogoMPT from "@/assets/Logo-MPT.png";
 import ButtonFullWidth from "@/components/ui/ButtonFullWidth";
+import ButtonWithTextInTheBorder from "@/components/ui/ButtonWithTextInTheBorder";
 import HorizontalScroll from "@/components/ui/HorizontalScroll";
 import LogoWithTextAndButton from "@/components/ui/LogoWithTextAndButton";
 import ParameterButton from "@/components/ui/ParameterButton";
@@ -12,19 +13,32 @@ import { useState } from "react";
 export default function Home() {
   const horScrollParams = ["Holders leadersboard", "Latest transfers", "Top users", "Topoviy top"]
   const [activeParamID, setActiveParamID] = useState(0)
+  const [isExpanded, setIsExpanded] = useState(false)
+
   // TODO: Delete when have actual API implementation
   const users = ["User1", "User2", "User3", "User4", "User5", "User6", "User7", "User8", "User9", "User10"]
+  
+  const shortText = "Create sustained impact. Support verified projects. Get regular updates. Save tax. Use web3..."
+  const fullText = "Create sustained impact through innovative blockchain technology. Support verified projects that are making a real difference in the world. Get regular updates on your investments and track your portfolio performance. Save on taxes with our advanced DeFi strategies. Use web3 to its full potential and be part of the future of finance. Join thousands of investors who are already benefiting from our platform."
 
   return (
     <div className="flex flex-col px-10 py-5 bg-[#181818] w-full h-full gap-5">
-      <LogoWithTextAndButton LogoImage={LogoMPT} firstText="Username" secondText="Your rank #2932" Button={<button className="bg-transparent border-red-500 border-2 rounded-xl text-md text-white px-4 py-2 font-bold">26,031</button>} />
+       <LogoWithTextAndButton 
+         LogoImage={LogoMPT} firstText="Username" secondText="Your rank #2932" 
+         Button={<ButtonWithTextInTheBorder text="26,031" textInTheBorder="Points"/>} 
+       />
       
       {/* Text area */}
       <div className="flex flex-col w-full h-max gap-2">
         <p className="text-gray-200 text-lg">
-          Create sustained impact. Support verified projects. Get regular updates. Save tax. Use web3.
+          {isExpanded ? fullText : shortText}
         </p>
-        <ButtonFullWidth text="Read More" bgColor="bg-[#494949]" textColor="white" textSize="lg" />
+        <button 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full bg-[#494949] rounded-2xl border-0 font-bold text-white py-3 text-lg hover:bg-[#5a5a5a] transition-colors"
+        >
+          {isExpanded ? "Read Less" : "Read More"}
+        </button>
       </div>
 
       {/* Info card */}

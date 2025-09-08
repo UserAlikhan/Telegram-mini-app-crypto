@@ -28,7 +28,7 @@ export default function BuyPage() {
                 />
                 
                 <div className="h-6 flex items-center justify-center">
-                {error && <p className="text-white text-sm text-center">{error}</p>}
+                    {error && <p className="text-white text-sm text-center">{error}</p>}
                 </div>
                 
                 <div className="flex flex-col w-full gap-5">

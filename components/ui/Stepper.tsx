@@ -26,7 +26,7 @@ export default function Stepper({ initialValue, min, max, step, amount, onAmount
 
     return (
         <div className=" flex flex-row justify-between items-center bg-gray-700 w-full px-15 py-2 rounded-2xl">
-            <button className="w-10 h-10 bg-gray-500 rounded-full" onClick={() => onAmountChange(amount - step)}>
+            <button className="w-10 h-10 bg-gray-400 rounded-full" onClick={() => onAmountChange(amount - step)}>
                 <p className="text-black text-2xl text-bold">-</p>
             </button>
 
@@ -47,7 +47,7 @@ export default function Stepper({ initialValue, min, max, step, amount, onAmount
                 min={0}
             />
 
-            <button className="w-10 h-10 bg-gray-500 rounded-full" onClick={() => onAmountChange(amount + step)}>
+            <button className="w-10 h-10 bg-gray-400 rounded-full" onClick={() => onAmountChange(amount + step)}>
                 <p className="text-black text-2xl text-bold">+</p>
             </button>
         </div>
