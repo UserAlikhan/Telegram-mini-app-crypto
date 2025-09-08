@@ -6,6 +6,7 @@ import { User } from "../api/users/route";
 export default function Profile() {
   const [user, setUser] = useState<User | null>(null)
 
+  // API call
   useEffect(() => {
     const fetchUser = async () => {
       const response = await fetch("/api/users/1")

@@ -8,6 +8,7 @@ import { User } from "../api/users/route"
 export default function HoldersLeadersboard() {
     const [users, setUsers] = useState<User[]>([])
 
+    // API call
     useEffect(() => {
         const fetchUsers = async () => {
             const response = await fetch("/api/users")

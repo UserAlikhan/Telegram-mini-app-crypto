@@ -5,9 +5,9 @@ import { Transfer } from "../api/transfers/route";
 
 export default function Transfers() {
 
-
   const [transfers, setTransfers] = useState<Transfer[]>([])
 
+  // API call
   useEffect(() => {
     const fetchTransfers = async () => {
       const response = await fetch("/api/transfers")

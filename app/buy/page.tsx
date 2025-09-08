@@ -2,15 +2,12 @@
 
 import ButtonFullWidth from "@/components/ui/ButtonFullWidth";
 import Stepper from "@/components/ui/Stepper";
+import { CURRENCIES, MAX_AMOUNT, MIN_AMOUNT, STEP } from "@/constants/main";
 import { useState } from "react";
 
 export default function BuyPage() {
 
-    const currencies = ["TON", "ETH", "USDT", "BTC"]
-
     const [amount, setAmount] = useState(0)
-    const max = 10000;
-    const min = 100;
 
     const [error, setError] = useState("")
     
@@ -19,9 +16,9 @@ export default function BuyPage() {
             <div className="flex flex-col gap-3">
                 <Stepper 
                     initialValue={amount}
-                    min={min}
-                    max={max}   
-                    step={10}
+                    min={MIN_AMOUNT}
+                    max={MAX_AMOUNT}   
+                    step={STEP}
                     amount={amount}
                     onAmountChange={setAmount}
                     setError={setError}
@@ -38,7 +35,7 @@ export default function BuyPage() {
 
                     <div className="flex flex-row w-full gap-3">
                         <select className="flex-[0.3] bg-gray-700 rounded-2xl py-5 px-4 pr-8 text-white text-center text-sm appearance-none border-none outline-none">
-                            {currencies.map((currency, index) => (
+                            {CURRENCIES.map((currency, index) => (
                                 <option className="text-white text-center text-sm" key={index} value={currency}>
                                     {currency}
                                 </option>

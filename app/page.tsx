@@ -10,19 +10,18 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { User } from "./api/users/route";
+import { HORIZONTAL_SCROLL_PARAMS, TEXT_CONTENT } from "@/constants/main";
+import LinkButton from "@/components/ui/LinkButton";
 
 export default function Home() {
-  const horScrollParams = ["Holders leadersboard", "Latest transfers", "Top users", "Topoviy top"]
+
   const [activeParamID, setActiveParamID] = useState(0)
   const [isExpanded, setIsExpanded] = useState(false)
   
-  const shortText = "Create sustained impact. Support verified projects. Get regular updates. Save tax. Use web3..."
-  const fullText = "Create sustained impact through innovative blockchain technology. Support verified projects that are making a real difference in the world. Get regular updates on your investments and track your portfolio performance. Save on taxes with our advanced DeFi strategies. Use web3 to its full potential and be part of the future of finance. Join thousands of investors who are already benefiting from our platform."
-
-
   const [user, setUser] = useState<User | null>(null)
   const [allUsers, setAllUsers] = useState<User[] | null>(null)
 
+  // API calls
   useEffect(() => {
     const fetchUser = async () => {
       const response = await fetch(`/api/users/1`)
@@ -50,14 +49,9 @@ export default function Home() {
       {/* Text area */}
       <div className="flex flex-col w-full h-max gap-2">
         <p className="text-gray-200 text-lg">
-          {isExpanded ? fullText : shortText}
+          {isExpanded ? TEXT_CONTENT.FULL : TEXT_CONTENT.SHORT}
         </p>
-        <button 
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full bg-[#494949] rounded-2xl border-0 font-bold text-white py-3 text-lg hover:bg-[#5a5a5a] transition-colors"
-        >
-          {isExpanded ? "Read Less" : "Read More"}
-        </button>
+        <ButtonFullWidth text={isExpanded ? "Read Less" : "Read More"} bgColor="bg-[#494949]" textColor="white" textSize="lg" onClick={() => setIsExpanded(!isExpanded)} />
       </div>
 
       {/* Info card */}
@@ -90,7 +84,7 @@ export default function Home() {
 
       {/* Horizotal Scroll */}
       <HorizontalScroll>
-        {horScrollParams.map((param, id) => (
+        {HORIZONTAL_SCROLL_PARAMS.map((param, id) => (
           <ParameterButton key={id} text={param} isActive={id === activeParamID} id={id} setActiveParamID={setActiveParamID}/>
         ))}
       </HorizontalScroll>
@@ -103,13 +97,10 @@ export default function Home() {
           </div>
         ))}
 
-        {allUsers?.length && allUsers.length > 3 && (
-            <button className="w-max self-end py-2 px-4">
-              <Link href="/holders-leadersboard">
-                <p className=" text-blue-600 text-sm">See more...</p>
-              </Link>
-            </button>
-          )}
+        {/* See more button */}
+        {activeParamID == 0 && allUsers?.length && allUsers.length > 3 && (
+          <LinkButton href="/holders-leadersboard" text="See more..." />
+        )}
       </div>
     </div>
   );
