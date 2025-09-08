@@ -1,10 +1,17 @@
+"use client"
+
 import LogoMPT from "@/assets/Logo-MPT.png";
 import ButtonFullWidth from "@/components/ui/ButtonFullWidth";
-import Logo from "@/components/ui/Logo";
+import HorizontalScroll from "@/components/ui/HorizontalScroll";
 import LogoWithTextAndButton from "@/components/ui/LogoWithTextAndButton";
+import ParameterButton from "@/components/ui/ParameterButton";
 import ProgressBar from "@/components/ui/ProgressBar";
+import { useState } from "react";
 
 export default function Home() {
+  const horScrollParams = ["Holders leadersboard", "Latest transfers", "Top users", "Topoviy top"]
+  const [activeParamID, setActiveParamID] = useState(0)
+
   return (
     <div className="flex flex-col px-10 py-5 bg-[#181818] w-full h-full gap-5">
       <LogoWithTextAndButton LogoImage={LogoMPT} firstText="Username" secondText="Your rank #2932" Button={<button className="bg-transparent border-red-500 border-2 rounded-xl text-md text-white px-4 py-2 font-bold">26,031</button>} />
@@ -28,7 +35,6 @@ export default function Home() {
           fillColor="bg-blue-400"
           className="w-full"
         />
-        <div></div>
         <p className="text-gray-300 text-sm">First round goal 1,000.00 TON</p>
         {/* Drop points card */}
          <div className=" flex flex-col bg-blue-900/30 w-full h-full px-5 py-4 gap-3 rounded-2xl">
@@ -41,6 +47,12 @@ export default function Home() {
         </div>
         <ButtonFullWidth text="Get drop points!" bgColor="bg-blue-400" textColor="white" textSize="lg" />
       </div>
+      {/* Horizotal Scroll */}
+      <HorizontalScroll>
+        {horScrollParams.map((param, id) => (
+          <ParameterButton key={id} text={param} isActive={id === activeParamID} id={id} setActiveParamID={setActiveParamID}/>
+        ))}
+      </HorizontalScroll>
     </div>
   );
 }
