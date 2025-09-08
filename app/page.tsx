@@ -8,24 +8,43 @@ import LogoWithTextAndButton from "@/components/ui/LogoWithTextAndButton";
 import ParameterButton from "@/components/ui/ParameterButton";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { User } from "./api/users/route";
 
 export default function Home() {
   const horScrollParams = ["Holders leadersboard", "Latest transfers", "Top users", "Topoviy top"]
   const [activeParamID, setActiveParamID] = useState(0)
   const [isExpanded, setIsExpanded] = useState(false)
-
-  // TODO: Delete when have actual API implementation
-  const users = ["User1", "User2", "User3", "User4", "User5", "User6", "User7", "User8", "User9", "User10"]
   
   const shortText = "Create sustained impact. Support verified projects. Get regular updates. Save tax. Use web3..."
   const fullText = "Create sustained impact through innovative blockchain technology. Support verified projects that are making a real difference in the world. Get regular updates on your investments and track your portfolio performance. Save on taxes with our advanced DeFi strategies. Use web3 to its full potential and be part of the future of finance. Join thousands of investors who are already benefiting from our platform."
 
+
+  const [user, setUser] = useState<User | null>(null)
+  const [allUsers, setAllUsers] = useState<User[] | null>(null)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await fetch(`/api/users/1`)
+      const data = await response.json()
+      setUser(data.data)
+    }
+
+    const fetchAllUsers = async () => {
+      const response = await fetch(`/api/users`)
+      const data = await response.json()
+      setAllUsers(data.data)
+    }
+
+    fetchUser()
+    fetchAllUsers()
+  }, [])
+
   return (
     <div className="flex flex-col px-10 py-5 bg-[#181818] w-full h-full gap-5">
        <LogoWithTextAndButton 
-         LogoImage={LogoMPT} firstText="Username" secondText="Your rank #2932" 
-         Button={<ButtonWithTextInTheBorder text="26,031" textInTheBorder="Points"/>} 
+         LogoImage={LogoMPT} firstText={user?.Username || ""} secondText={`Your rank #${user?.Rank || ""}`} 
+         Button={<ButtonWithTextInTheBorder text={String(user?.Points || "")} textInTheBorder="Points"/>} 
        />
       
       {/* Text area */}
@@ -43,7 +62,7 @@ export default function Home() {
 
       {/* Info card */}
       <div className="flex flex-col gap-3 w-full h-full py-3 px-4 border-2 border-gray-500 border-rounded-2xl rounded-2xl">
-        <p className="text-gray-300 text-md mt-3">💎 Total funds raised 583.93 TON</p>
+        <p className="text-gray-300 text-md mt-3">💎 Total funds raised ${user?.TON || ""} TON</p>
         {/* Loading bar based  on percentage */}
         <ProgressBar
           percentage={52.3}
@@ -77,27 +96,21 @@ export default function Home() {
       </HorizontalScroll>
 
       {/* Users cards */}
-      {activeParamID == 0 && (
-        <div className=" flex flex-col rounded-2xl gap-3">
-          <div className=" flex border-1 border-gray-600 px-5 py-3 rounded-2xl">
-            <LogoWithTextAndButton LogoImage={LogoMPT} firstText="Username" secondText="10 TON" Button={<p className="text-gray-400 text-sm">#1</p>} />
+      <div className=" flex flex-col rounded-2xl gap-3">
+        {activeParamID == 0 && allUsers?.slice(0, 3).map((userData, id) => (
+          <div key={id} className=" flex border-1 border-gray-600 px-5 py-3 rounded-2xl">
+            <LogoWithTextAndButton LogoImage={LogoMPT} firstText={userData.Username} secondText={`${userData.TON} TON`} Button={<p className="text-gray-400 text-sm">#${id + 1}</p>} />
           </div>
-          <div className=" flex border-1 border-gray-600 px-4 py-3 rounded-2xl">
-            <LogoWithTextAndButton LogoImage={LogoMPT} firstText="Username" secondText="10 TON" Button={<p className="text-gray-400 text-sm">#2</p>} />
-          </div>
-          <div className=" flex border-1 border-gray-600 px-4 py-3 rounded-2xl">
-            <LogoWithTextAndButton LogoImage={LogoMPT} firstText="Username" secondText="10 TON" Button={<p className="text-gray-400 text-sm">#3</p>} />
-          </div>
-          {/* If there are 3 or more users, redirect to Holders leadersboard page */}
-          {users.length > 3 && (
+        ))}
+
+        {allUsers?.length && allUsers.length > 3 && (
             <button className="w-max self-end py-2 px-4">
               <Link href="/holders-leadersboard">
                 <p className=" text-blue-600 text-sm">See more...</p>
               </Link>
             </button>
           )}
-        </div>
-      )}
+      </div>
     </div>
   );
 }
