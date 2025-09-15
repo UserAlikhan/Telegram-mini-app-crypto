@@ -11,7 +11,7 @@ export default function BuyPage() {
 
     const [amount, setAmount] = useState(0)
 
-    const [error, setError] = useState("")
+    const [error, setError] = useState("You must buy at least 100 points")
 
     const [selectedOption, setSelectedOption] = useState(CURRENCIES[0])
     
@@ -45,7 +45,7 @@ export default function BuyPage() {
                 </div>                
             </div>
 
-            <ButtonFullWidth text="Buy" bgColor="bg-[#1D9BF0]" textColor="[#F5F8FA]" textSize="[14px]" />
+            <ButtonFullWidth text="Buy" bgColor="bg-[#1D9BF0]" textColor="text-[#F5F8FA]" textSize="text-[14px" />
         </div>
     );
   }

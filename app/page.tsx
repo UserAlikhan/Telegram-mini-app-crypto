@@ -47,7 +47,7 @@ export default function Home() {
       <LogoWithTextAndButton 
        LogoImage={LogoFirst} width={45} height={45} 
        TextSection={
-        <div className="flex flex-col justify-between items-start">
+        <div className="flex flex-col justify-center items-start">
           <p className="text-white text-[16px] font-normal">{user?.Username || ""}</p>
           <p className="text-[#636363] text-[12px] font-normal">Your rank #{user?.Rank || ""}</p>
         </div>
@@ -60,11 +60,11 @@ export default function Home() {
         <p className="text-[#AAB8C2] text-[16px]">
           {isExpanded ? TEXT_CONTENT.FULL : TEXT_CONTENT.SHORT}
         </p>
-        <ButtonFullWidth text={isExpanded ? "Read Less" : "Read More"} bgColor="bg-[#494949]" textColor="white" textSize="14px" onClick={() => setIsExpanded(!isExpanded)} />
+        <ButtonFullWidth text={isExpanded ? "Read Less" : "Read More"} bgColor="bg-[#494949]" textColor="text-white" textSize="text-[14px]" onClick={() => setIsExpanded(!isExpanded)} />
       </div>
 
       {/* Info card */}
-      <div className="flex flex-col gap-3 w-full h-full py-3 px-4 border-1 border-gray-600 border-rounded-2xl rounded-2xl">
+      <div className="flex flex-col gap-3 w-full h-full pt-5 pb-3 px-4 border-1 border-gray-600 border-rounded-2xl rounded-2xl">
         <p className="text-gray-400 text-[12px] font-normal ">💎 Total funds raised ${user?.TON || ""} TON</p>
         {/* Loading bar based  on percentage */}
         <ProgressBar
@@ -99,7 +99,7 @@ export default function Home() {
           {/* Second half of the card */}
           <p className=" w-full text-[10px] text-[#F5F8FA]">🔥 148.32K members & 223.42 purchased</p>
         </div>
-        <ButtonFullWidth text="Get drop points!" bgColor="bg-blue-400" textColor="white" textSize="lg" />
+        <ButtonFullWidth text="Get drop points!" bgColor="bg-[#1D9BF0]" textColor="color-[#FFFFFF]" textSize="text-[14px]" />
       </div>
       
       <div className=" flex flex-col gap-3">

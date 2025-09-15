@@ -21,7 +21,7 @@ export default function Stepper({ min, max, step, amount, onAmountChange, setErr
         } else if (amount > max) {
             setError("Value cannot be greater than " + max)
         } else {
-            setError("")
+            setError("You must buy at least 100 points")
         }
     }, [amount])
 
