@@ -48,7 +48,7 @@ export default function Home() {
        TextSection={
         <div className="flex flex-col justify-between items-start">
           <p className="text-white text-[16px] font-normal">{user?.Username || ""}</p>
-          <p className="text-gray-400 text-[12px] font-normal">Your rank #{user?.Rank || ""}</p>
+          <p className="text-[#636363] text-[12px] font-normal">Your rank #{user?.Rank || ""}</p>
         </div>
        }
        Button={<ButtonWithTextInTheBorder text={String(user?.Points || "")} textInTheBorder="Points"/>} 
@@ -64,7 +64,7 @@ export default function Home() {
 
       {/* Info card */}
       <div className="flex flex-col gap-3 w-full h-full py-3 px-4 border-1 border-gray-600 border-rounded-2xl rounded-2xl">
-        <p className="text-[#F5F8FA] text-[12px] text-bold-400 ">💎 Total funds raised ${user?.TON || ""} TON</p>
+        <p className="text-gray-400 text-[12px] text-bold-400 ">💎 Total funds raised ${user?.TON || ""} TON</p>
         {/* Loading bar based  on percentage */}
         <ProgressBar
           percentage={52.3}
@@ -73,7 +73,7 @@ export default function Home() {
           fillColor="bg-[#1D9BF0]"
           className="w-full"
         />
-        <p className="text-gray-300 text-[10px] font-normal">First round goal 1,000.00 TON</p>
+        <p className="text-gray-400 text-[10px] font-normal">First round goal 1,000.00 TON</p>
         {/* Drop points card */}
         <div className=" flex flex-col bg-[#253341] w-full h-full p-3 gap-3 rounded-xl">
           {/* First half of the card */}
@@ -81,7 +81,7 @@ export default function Home() {
             LogoImage={LogoSecond} width={38} height={38} 
             TextSection={
               <div className="flex flex-col justify-between items-start">
-                <p className="text-gray-400 text-[12px] font-normal">Drop Points price:</p>
+                <p className="text-[#636363] text-[12px] font-normal">Drop Points price:</p>
                 <p className="text-white text-[16px] font-normal">0.01 TON</p>
               </div>
             } 
@@ -100,35 +100,37 @@ export default function Home() {
         </div>
         <ButtonFullWidth text="Get drop points!" bgColor="bg-blue-400" textColor="white" textSize="lg" />
       </div>
+      
+      <div className=" flex flex-col gap-3">
+        {/* Horizotal Scroll */}
+        <HorizontalScroll>
+          {HORIZONTAL_SCROLL_PARAMS.map((param, id) => (
+            <ParameterButton key={id} text={param} isActive={id === activeParamID} id={id} setActiveParamID={setActiveParamID}/>
+          ))}
+        </HorizontalScroll>
 
-      {/* Horizotal Scroll */}
-      <HorizontalScroll>
-        {HORIZONTAL_SCROLL_PARAMS.map((param, id) => (
-          <ParameterButton key={id} text={param} isActive={id === activeParamID} id={id} setActiveParamID={setActiveParamID}/>
-        ))}
-      </HorizontalScroll>
+        {/* Users cards */}
+        <div className=" flex flex-col rounded-2xl gap-3">
+          {activeParamID == 0 && allUsers?.slice(0, 3).map((userData, id) => (
+            <div key={id} className=" flex border-1 border-gray-600 px-5 py-3 rounded-2xl">
+              <LogoWithTextAndButton 
+                LogoImage={LogoThird} width={60} height={60} 
+                TextSection={
+                  <div className="flex flex-col justify-center">
+                    <p className="text-[#F5F8FA] text-[16px] font-normal">{userData.Username}</p>
+                    <p className="text-[#636363] text-[16px] font-normal">{`${userData.TON} TON`}</p>
+                  </div>
+                }
+                Button={<p className="text-[#636363] text-[16px] font-normal">#{id + 1}</p>} 
+              />
+            </div>
+          ))}
 
-      {/* Users cards */}
-      <div className=" flex flex-col rounded-2xl gap-3">
-        {activeParamID == 0 && allUsers?.slice(0, 3).map((userData, id) => (
-          <div key={id} className=" flex border-1 border-gray-600 px-5 py-3 rounded-2xl">
-            <LogoWithTextAndButton 
-              LogoImage={LogoThird} width={60} height={60} 
-              TextSection={
-                <div className="flex flex-col justify-center">
-                  <p className="text-[#F5F8FA] text-[16px] font-normal">{userData.Username}</p>
-                  <p className="text-[#636363] text-[16px] font-normal">{`${userData.TON} TON`}</p>
-                </div>
-              }
-              Button={<p className="text-[#636363] text-[16px] font-normal">#{id + 1}</p>} 
-            />
-          </div>
-        ))}
-
-        {/* See more button */}
-        {activeParamID == 0 && allUsers?.length && allUsers.length > 3 && (
-          <LinkButton href="/holders-leadersboard" text="See more..." />
-        )}
+          {/* See more button */}
+          {activeParamID == 0 && allUsers?.length && allUsers.length > 3 && (
+            <LinkButton href="/holders-leadersboard" text="See more..." />
+          )}
+      </div>
       </div>
     </div>
   );
