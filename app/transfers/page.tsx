@@ -19,7 +19,7 @@ export default function Transfers() {
   }, [])
   
   return (
-    <div className="flex flex-col px-10 py-5 bg-[#181818] w-full h-full gap-5">
+    <div className="flex flex-col px-10 py-5 bg-[#2F2F33] w-full h-full gap-5">
       <h1 className="text-white text-2xl font-bold text-center">Latest Transfers</h1>
       <div className="flex flex-col gap-3">
         {transfers.map((transfer, index) => (

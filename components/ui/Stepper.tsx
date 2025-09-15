@@ -1,18 +1,19 @@
 "use client"
 
+import floatFormat from "@/utils/FloatFormat";
 import { useEffect } from "react";
+import { Minus, Plus } from "lucide-react";
 
 type Props = {
-    initialValue: number;
     min: number;
     max: number;
-    step: number;
+    step: number;   
     amount: number;
     onAmountChange: (value: number) => void;
     setError: (error: string) => void;
 }
 
-export default function Stepper({ initialValue, min, max, step, amount, onAmountChange, setError }: Props) {
+export default function Stepper({ min, max, step, amount, onAmountChange, setError }: Props) {
 
     useEffect(() => {
         if (amount < min) {
@@ -25,14 +26,14 @@ export default function Stepper({ initialValue, min, max, step, amount, onAmount
     }, [amount])
 
     return (
-        <div className=" flex flex-row justify-between items-center bg-gray-700 w-full px-15 py-2 rounded-2xl">
-            <button className="w-10 h-10 bg-gray-400 rounded-full" onClick={() => onAmountChange(amount - step)}>
-                <p className="text-black text-2xl font-bold">-</p>
+        <div className=" flex flex-row justify-between items-center bg-[#15202B] w-full px-12 py-2 rounded-xl">
+            <button className="flex items-center justify-center bg-[#AAB8C2] w-[24px] h-[24px] rounded-full text-[white]" onClick={() => onAmountChange(amount - step)}>
+                <Minus width={24} height={24} color="black" />
             </button>
 
             <input 
-                className="text-white text-2xl font-bold text-center bg-transparent border-none outline-none" 
-                value={amount} 
+                className="text-[#F5F8FA] text-[24px] font-bold text-center border-nonebg-transparent w-[105px] sm:w-[70px] outline-none" 
+                value={floatFormat(amount)}
                 onChange={(e) => {
                     const value = e.target.value;
                     if (value === '') {
@@ -47,8 +48,8 @@ export default function Stepper({ initialValue, min, max, step, amount, onAmount
                 min={0}
             />
 
-            <button className="w-10 h-10 bg-gray-400 rounded-full" onClick={() => onAmountChange(amount + step)}>
-                <p className="text-black text-2xl font-bold">+</p>
+            <button className="flex items-center justify-center bg-[#AAB8C2] w-[24px] h-[24px] rounded-full text-[white]" onClick={() => onAmountChange(amount + step)}>
+                <Plus width={24} height={24} color="black" />
             </button>
         </div>
     )

@@ -18,7 +18,7 @@ export default function Profile() {
   }, [])
 
   return (
-    <div className="flex flex-col px-10 py-5 bg-[#181818] w-full h-full gap-5">
+    <div className="flex flex-col px-10 py-5 bg-[#2F2F33] w-full h-screen gap-5">
       <h1 className="text-white text-2xl font-bold text-center">Profile</h1>
       <div className="flex flex-col gap-4">
         <div className="bg-gray-700/50 rounded-xl p-6 text-center">

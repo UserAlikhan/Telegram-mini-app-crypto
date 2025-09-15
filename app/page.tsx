@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { User } from "./api/users/route";
 import { HORIZONTAL_SCROLL_PARAMS, TEXT_CONTENT } from "@/constants/main";
 import LinkButton from "@/components/ui/LinkButton";
+import floatFormat from "@/utils/FloatFormat";
 
 export default function Home() {
 
@@ -51,7 +52,7 @@ export default function Home() {
           <p className="text-[#636363] text-[12px] font-normal">Your rank #{user?.Rank || ""}</p>
         </div>
        }
-       Button={<ButtonWithTextInTheBorder text={String(user?.Points || "")} textInTheBorder="Points"/>} 
+       Button={<ButtonWithTextInTheBorder text={String(floatFormat(user?.Points || 0)) } textInTheBorder="Points"/>} 
       />
       
       {/* Text area */}
@@ -87,7 +88,7 @@ export default function Home() {
             } 
             Button={
               <Link href="/buy">
-                <button className="bg-gray-500 rounded-2xl text-[14px] font-bold text-white h-fit px-5 py-2">
+                <button className="bg-gray-600 rounded-xl text-[14px] font-bold text-white h-fit px-5 py-2">
                   <p className=" text-[14px] font-bold">Buy</p>
                 </button>
               </Link>
@@ -130,7 +131,7 @@ export default function Home() {
           {activeParamID == 0 && allUsers?.length && allUsers.length > 3 && (
             <LinkButton href="/holders-leadersboard" text="See more..." />
           )}
-      </div>
+        </div>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${anonymousPro.variable} ${sfProText.variable} antialiased`}
       >
-        <div className="pb-20">
+        <div className="pb-[69px]">
           {children}
         </div>
         <BottomNavigation />

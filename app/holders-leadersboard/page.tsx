@@ -20,7 +20,7 @@ export default function HoldersLeadersboard() {
     }, [])
 
     return (
-        <div className="flex flex-col gap-3 py-7 px-10">
+        <div className="flex bg-[#2F2F33] w-full h-screen flex-col gap-3 py-7 px-10">
             <h1 className="text-white text-2xl font-bold text-center">Holders leadersboard</h1>
             {users.map((user, index) => (
                 <div key={index} className="flex border-1 border-gray-600 px-4 py-3 rounded-2xl">
