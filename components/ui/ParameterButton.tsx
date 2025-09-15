@@ -11,7 +11,7 @@ export default function ParameterButton({ text, isActive, id, setActiveParamID }
             className={`${isActive ? "bg-white" : "bg-[#303030]"} h-[30px] rounded-2xl px-2`}
             onClick={() => setActiveParamID(id)}
         >
-            <p className={`${isActive ? "text-black" : "text-white"} text-[12px]`}>{text}</p>
+            <p className={`${isActive ? "text-black" : "text-white"} text-[12px]`} style={{fontFamily: 'var(--font-sf-pro-text)'}}>{text}</p>
         </button>
     )
 }

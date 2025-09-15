@@ -64,7 +64,7 @@ export default function Home() {
 
       {/* Info card */}
       <div className="flex flex-col gap-3 w-full h-full py-3 px-4 border-1 border-gray-600 border-rounded-2xl rounded-2xl">
-        <p className="text-gray-400 text-[12px] text-bold-400 ">💎 Total funds raised ${user?.TON || ""} TON</p>
+        <p className="text-gray-400 text-[12px] font-normal ">💎 Total funds raised ${user?.TON || ""} TON</p>
         {/* Loading bar based  on percentage */}
         <ProgressBar
           percentage={52.3}
@@ -87,8 +87,8 @@ export default function Home() {
             } 
             Button={
               <Link href="/buy">
-                <button className="bg-gray-500 rounded-2xl text-md text-white h-fit px-5 py-2">
-                  <p className=" text-[14px] text-bold">Buy</p>
+                <button className="bg-gray-500 rounded-2xl text-[14px] font-bold text-white h-fit px-5 py-2">
+                  <p className=" text-[14px] font-bold">Buy</p>
                 </button>
               </Link>
             } 
