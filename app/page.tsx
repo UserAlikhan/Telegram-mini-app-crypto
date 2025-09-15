@@ -111,25 +111,24 @@ export default function Home() {
         </HorizontalScroll>
 
         {/* Users cards */}
-        <div className=" flex flex-col rounded-2xl gap-3">
-          {activeParamID == 0 && allUsers?.slice(0, 3).map((userData, id) => (
-            <div key={id} className=" flex border-1 border-gray-600 px-5 py-3 rounded-2xl">
-              <LogoWithTextAndButton 
-                LogoImage={LogoThird} width={60} height={60} 
-                TextSection={
-                  <div className="flex flex-col justify-center">
-                    <p className="text-[#F5F8FA] text-[16px] font-normal">{userData.Username}</p>
-                    <p className="text-[#636363] text-[16px] font-normal">{`${userData.TON} TON`}</p>
-                  </div>
-                }
-                Button={<p className="text-[#636363] text-[16px] font-normal">#{id + 1}</p>} 
-              />
+        <div className="flex flex-col rounded-2xl gap-3">
+          {activeParamID == 0 && (
+            <div className="h-[164px] overflow-y-auto scrollbar-hide">
+              {allUsers?.map((userData, id) => (
+                <div key={id} className="flex border-1 border-gray-600 px-5 py-3 rounded-2xl mb-3 last:mb-0">
+                  <LogoWithTextAndButton 
+                    LogoImage={LogoThird} width={60} height={60} 
+                    TextSection={
+                      <div className="flex flex-col justify-center">
+                        <p className="text-[#F5F8FA] text-[16px] font-normal">{userData.Username}</p>
+                        <p className="text-[#636363] text-[16px] font-normal">{`${userData.TON} TON`}</p>
+                      </div>
+                    }
+                    Button={<p className="text-[#636363] text-[16px] font-normal">#{id + 1}</p>} 
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-
-          {/* See more button */}
-          {activeParamID == 0 && allUsers?.length && allUsers.length > 3 && (
-            <LinkButton href="/holders-leadersboard" text="See more..." />
           )}
         </div>
       </div>
