@@ -8,10 +8,10 @@ interface ProgressBarProps {
 
 export default function ProgressBar({ 
   percentage, 
-  height = "h-2", 
-  backgroundColor = "bg-gray-600", 
-  fillColor = "bg-blue-500",
-  className = ""
+  height, 
+  backgroundColor, 
+  fillColor,
+  className
 }: ProgressBarProps) {
   return (
     <div className={`relative w-full ${height} ${backgroundColor} rounded-full overflow-hidden ${className}`}>
@@ -20,7 +20,7 @@ export default function ProgressBar({
         style={{ width: `${Math.min(100, Math.max(0, percentage))}%` }}
       />
       <div className="absolute inset-0 flex justify-center items-center">
-        <p className="text-white text-sm font-medium">{percentage}%</p>
+        <p className="text-white text-[10px] font-normal">{percentage}%</p>
       </div>
     </div>
   );

@@ -3,27 +3,25 @@ import Logo from "./Logo";
 
 interface Props {
   LogoImage: StaticImageData;
-  firstText: string;
-  secondText: string;
+  width: number,
+  height: number,
+  TextSection: React.ReactNode;
   Button: React.ReactNode;
 }
 
-export default function LogoWithTextAndButton({ LogoImage, firstText, secondText, Button }: Props) {
+export default function LogoWithTextAndButton({ LogoImage, width, height, TextSection, Button }: Props) {
     return (
-        <div className=" flex flex-row w-full h-15 justify-between items-center">
-          <div className="flex flex-row w-full h-full items-center gap-3">
+        <div className=" flex flex-row w-full justify-between" style={{height: height}}>
+          <div className="flex flex-row w-full h-full gap-3">
             {/* Avatar Image */}
-            <div className="flex items-center h-full">
-              <Logo logo={LogoImage} width={50} height={50} />
+            <div style={{width: width, height: height}}>
+              <Logo logo={LogoImage} width={width} height={height} />
             </div>
             {/* Username and rank */}
-            <div className="flex flex-col justify-center items-start">
-              <h1 className="text-white text-md">{firstText}</h1>
-              <p className="text-gray-400 text-sm">{secondText}</p>
-            </div>
+            {TextSection}
           </div>
           {/* Button */}
-          <div className="flex flex-row justify-end items-center">
+          <div className="flex flex-row items-center h-full">
             {Button}
           </div>
       </div>
