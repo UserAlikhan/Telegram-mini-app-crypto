@@ -53,7 +53,7 @@ export default function BottomNavigation() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-[69px] bg-[#15202B] border-t border-gray-700 px-4 py-2">
+    <div className="fixed bottom-0 left-0 right-0 h-[50px] xs:h-[60px] sm:h-[69px] bg-[#15202B] border-t border-gray-700 px-2 xs:px-3 sm:px-4 py-1 xs:py-1.5 sm:py-2">
       <div className="flex justify-around items-center max-w-md mx-auto">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;
@@ -61,7 +61,7 @@ export default function BottomNavigation() {
             <Link
               key={tab.id}
               href={tab.href}
-              className={`flex flex-col items-center py-2 px-3 rounded-lg transition-colors ${
+              className={`flex flex-col items-center py-1 xs:py-1.5 sm:py-2 px-1 xs:px-2 sm:px-3 rounded-lg transition-colors ${
                 isActive 
                   ?  "text-white" 
                   : "text-gray-400"

@@ -16,7 +16,7 @@ export default function BuyPage() {
     const [selectedOption, setSelectedOption] = useState(CURRENCIES[0])
     
     return (
-        <div className="flex flex-col bg-[#2F2F33] justify-center items-center w-full h-[calc(100vh-69px)] px-5 py-5 gap-4">
+        <div className="flex flex-col bg-[#2F2F33] justify-center items-center w-full h-[calc(100vh-50px)] xs:h-[calc(100vh-60px)] sm:h-[calc(100vh-69px)] px-5 py-5 gap-4">
             <Stepper 
                 min={MIN_AMOUNT}
                 max={MAX_AMOUNT}   
