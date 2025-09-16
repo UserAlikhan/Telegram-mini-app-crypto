@@ -13,7 +13,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { User } from "./api/users/route";
 import { HORIZONTAL_SCROLL_PARAMS, TEXT_CONTENT } from "@/constants/main";
-import LinkButton from "@/components/ui/LinkButton";
 import floatFormat from "@/utils/FloatFormat";
 
 export default function Home() {
@@ -22,20 +21,37 @@ export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false)
   
   const [user, setUser] = useState<User | null>(null)
+  const [loadingUser, setLoadingUser] = useState(false)
+  
   const [allUsers, setAllUsers] = useState<User[] | null>(null)
+  const [loadingAllUsers, setLoadingAllUsers] = useState(false)
 
   // API calls
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch(`/api/users/1`)
-      const data = await response.json()
-      setUser(data.data)
+      try {
+        setLoadingUser(true)
+        const response = await fetch(`/api/users/1`)
+        const data: { data: User } = await response.json()
+        setUser(data.data)
+      } catch (error) {
+        console.error('Error fetching user:', error)
+      } finally {
+        setLoadingUser(false)
+      }
     }
 
     const fetchAllUsers = async () => {
+      try {
+        setLoadingAllUsers(true)
       const response = await fetch(`/api/users`)
-      const data = await response.json()
-      setAllUsers(data.data)
+        const data: { data: User[] } = await response.json()
+        setAllUsers(data.data)
+      } catch (error) {
+        console.error('Error fetching all users:', error)
+      } finally {
+        setLoadingAllUsers(false)
+      }
     }
 
     fetchUser()
@@ -44,16 +60,30 @@ export default function Home() {
 
   return (
     <div className="flex flex-col px-10 py-5 bg-[#2F2F33] w-full h-full gap-5">
-      <LogoWithTextAndButton 
-       LogoImage={LogoFirst} width={45} height={45} 
-       TextSection={
-        <div className="flex flex-col justify-center items-start">
-          <p className="text-white text-[16px] font-normal">{user?.Username || ""}</p>
-          <p className="text-[#636363] text-[12px] font-normal">Your rank #{user?.Rank || ""}</p>
+      {/* Skeleton Screen */}
+      {loadingUser ? (
+        <div className="flex items-center gap-4 animate-pulse">
+          <div className="h-12 w-12 rounded-full bg-gray-600"></div>
+          <div className="flex flex-col gap-2">
+            <div className="h-4 w-32 bg-gray-600 rounded"></div>
+            <div className="h-3 w-20 bg-gray-600 rounded"></div>
+          </div>
+          <div className="ml-auto h-8 w-20 bg-gray-600 rounded"></div>
         </div>
-       }
-       Button={<ButtonWithTextInTheBorder text={String(floatFormat(user?.Points || 0)) } textInTheBorder="Points"/>} 
-      />
+      ): (
+        !loadingUser && (
+          <LogoWithTextAndButton 
+            LogoImage={LogoFirst} width={45} height={45} 
+            TextSection={
+              <div className="flex flex-col justify-center items-start">
+                <p className="text-white text-[16px] font-normal">{user?.Username || ""}</p>
+                <p className="text-[#636363] text-[12px] font-normal">Your rank #{user?.Rank || ""}</p>
+              </div>
+            }
+            Button={<ButtonWithTextInTheBorder text={String(floatFormat(user?.Points || 0)) } textInTheBorder="Points"/>} 
+          />
+        )
+      )}
       
       {/* Text area */}
       <div className="flex flex-col w-full h-max gap-2">
@@ -63,44 +93,58 @@ export default function Home() {
         <ButtonFullWidth text={isExpanded ? "Read Less" : "Read More"} bgColor="bg-[#494949]" textColor="text-white" textSize="text-[14px]" onClick={() => setIsExpanded(!isExpanded)} />
       </div>
 
-      {/* Info card */}
-      <div className="flex flex-col gap-3 w-full h-full pt-5 pb-3 px-4 border-1 border-gray-600 border-rounded-2xl rounded-2xl">
-        <p className="text-gray-400 text-[12px] font-normal ">💎 Total funds raised ${user?.TON || ""} TON</p>
-        {/* Loading bar based  on percentage */}
-        <ProgressBar
-          percentage={52.3}
-          height="h-[20px]"
-          backgroundColor="bg-gray-700"
-          fillColor="bg-[#1D9BF0]"
-          className="w-full"
-        />
-        <p className="text-gray-400 text-[10px] font-normal">First round goal 1,000.00 TON</p>
-        {/* Drop points card */}
-        <div className=" flex flex-col bg-[#253341] w-full h-full p-3 gap-3 rounded-xl">
-          {/* First half of the card */}
-          <LogoWithTextAndButton 
-            LogoImage={LogoSecond} width={38} height={38} 
-            TextSection={
-              <div className="flex flex-col justify-between items-start">
-                <p className="text-[#636363] text-[12px] font-normal">Drop Points price:</p>
-                <p className="text-white text-[16px] font-normal">0.01 TON</p>
-              </div>
-            } 
-            Button={
-              <Link href="/buy">
-                <button className="bg-gray-600 rounded-xl text-[14px] font-bold text-white h-fit px-5 py-2">
-                  <p className=" text-[14px] font-bold">Buy</p>
-                </button>
-              </Link>
-            } 
-          />
-          {/* Border separator */}
-          <div className="w-full border-b-1 border-gray-600"></div>
-          {/* Second half of the card */}
-          <p className=" w-full text-[10px] text-[#F5F8FA]">🔥 148.32K members & 223.42 purchased</p>
+      {/* Info card, Skeleton Screen */}
+      {loadingUser ? (
+        <div className="flex flex-col gap-3 p-4 rounded-2xl bg-gray-700/40 animate-pulse">
+          <div className="h-3 w-40 bg-gray-600 rounded"></div>
+          <div className="h-5 w-full bg-gray-600 rounded"></div>
+          <div className="h-3 w-32 bg-gray-600 rounded"></div>
+          <div className="h-20 w-full bg-gray-600 rounded"></div>
+          <div className="h-8 w-40 bg-gray-600 rounded"></div>
         </div>
-        <ButtonFullWidth text="Get drop points!" bgColor="bg-[#1D9BF0]" textColor="color-[#FFFFFF]" textSize="text-[14px]" />
-      </div>
+      ) : (
+        // Read data
+        !loadingUser && (
+          <div className="flex flex-col gap-3 w-full h-full pt-5 pb-3 px-4 border-1 border-gray-600 border-rounded-2xl rounded-2xl">
+            <p className="text-gray-400 text-[12px] font-normal ">💎 Total funds raised ${user?.TON || ""} TON</p>
+            {/* Loading bar based  on percentage */}
+            <ProgressBar
+              percentage={52.3}
+              height="h-[20px]"
+              backgroundColor="bg-gray-700"
+              fillColor="bg-[#1D9BF0]"
+              className="w-full"
+            />
+            <p className="text-gray-400 text-[10px] font-normal">First round goal 1,000.00 TON</p>
+            {/* Drop points card */}
+            <div className=" flex flex-col bg-[#253341] w-full h-full p-3 gap-3 rounded-xl">
+              {/* First half of the card */}
+              <LogoWithTextAndButton 
+                LogoImage={LogoSecond} width={38} height={38} 
+                TextSection={
+                  <div className="flex flex-col justify-between items-start">
+                    <p className="text-[#636363] text-[12px] font-normal">Drop Points price:</p>
+                    <p className="text-white text-[16px] font-normal">0.01 TON</p>
+                  </div>
+                } 
+                Button={
+                  <Link href="/buy">
+                    <button className="bg-gray-600 rounded-xl text-[14px] font-bold text-white h-fit px-5 py-2">
+                      <p className=" text-[14px] font-bold">Buy</p>
+                    </button>
+                  </Link>
+                } 
+              />
+
+              {/* Border separator */}
+              <div className="w-full border-b-1 border-gray-600"></div>
+              {/* Second half of the card */}
+              <p className=" w-full text-[10px] text-[#F5F8FA]">🔥 148.32K members & 223.42 purchased</p>
+            </div>
+            <ButtonFullWidth text="Get drop points!" bgColor="bg-[#1D9BF0]" textColor="color-[#FFFFFF]" textSize="text-[14px]" />
+          </div>
+        )
+      )}
       
       <div className=" flex flex-col gap-3">
         {/* Horizotal Scroll */}
@@ -111,26 +155,51 @@ export default function Home() {
         </HorizontalScroll>
 
         {/* Users cards */}
-        <div className="flex flex-col rounded-2xl gap-3">
-          {activeParamID == 0 && (
-            <div className="h-[164px] overflow-y-auto scrollbar-hide">
-              {allUsers?.map((userData, id) => (
-                <div key={id} className="flex border-1 border-gray-600 px-5 py-3 rounded-2xl mb-3 last:mb-0">
-                  <LogoWithTextAndButton 
-                    LogoImage={LogoThird} width={60} height={60} 
-                    TextSection={
-                      <div className="flex flex-col justify-center">
-                        <p className="text-[#F5F8FA] text-[16px] font-normal">{userData.Username}</p>
-                        <p className="text-[#636363] text-[16px] font-normal">{`${userData.TON} TON`}</p>
-                      </div>
-                    }
-                    Button={<p className="text-[#636363] text-[16px] font-normal">#{id + 1}</p>} 
-                  />
+        {loadingAllUsers ? (
+          <div className="flex flex-col gap-3">
+            {[...Array(2)].map((_, index) => (
+              <div
+                key={index}
+                className="flex border border-gray-600 px-5 py-3 rounded-2xl mb-3 last:mb-0 animate-pulse"
+              >
+                {/* Logo skeleton */}
+                <div className="w-[60px] h-[60px] bg-gray-700 rounded-xl mr-4" />
+        
+                {/* Text skeleton */}
+                <div className="flex flex-col justify-center flex-1 gap-2">
+                  <div className="h-4 bg-gray-700 rounded w-32" />
+                  <div className="h-4 bg-gray-700 rounded w-20" />
                 </div>
-              ))}
+        
+                {/* Button skeleton */}
+                <div className="w-10 h-4 bg-gray-700 rounded" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          !loadingAllUsers && (
+            <div className="flex flex-col rounded-2xl gap-3">
+              {activeParamID == 0 && (
+                <div className="h-[164px] overflow-y-auto scrollbar-hide">
+                  {allUsers?.map((userData, id) => (
+                    <div key={id} className="flex border-1 border-gray-600 px-5 py-3 rounded-2xl mb-3 last:mb-0">
+                      <LogoWithTextAndButton 
+                        LogoImage={LogoThird} width={60} height={60} 
+                        TextSection={
+                          <div className="flex flex-col justify-center">
+                            <p className="text-[#F5F8FA] text-[16px] font-normal">{userData.Username}</p>
+                            <p className="text-[#636363] text-[16px] font-normal">{`${userData.TON} TON`}</p>
+                          </div>
+                        }
+                        Button={<p className="text-[#636363] text-[16px] font-normal">#{id + 1}</p>} 
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          )
+        )}
       </div>
     </div>
   );
