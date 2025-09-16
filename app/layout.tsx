@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${anonymousPro.variable} ${sfProText.variable} antialiased`}
+        className={`${anonymousPro.variable} ${sfProText.variable} antialiased bg-[#2F2F33]`}
       >
         <div className="pb-[69px] bg-[#2F2F33]">
           {children}

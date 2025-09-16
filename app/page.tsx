@@ -10,7 +10,7 @@ import LogoWithTextAndButton from "@/components/ui/LogoWithTextAndButton";
 import ParameterButton from "@/components/ui/ParameterButton";
 import ProgressBar from "@/components/ui/ProgressBar";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { User } from "./api/users/route";
 import { HORIZONTAL_SCROLL_PARAMS, TEXT_CONTENT } from "@/constants/main";
 import floatFormat from "@/utils/FloatFormat";
@@ -25,6 +25,11 @@ export default function Home() {
   
   const [allUsers, setAllUsers] = useState<User[] | null>(null)
   const [loadingAllUsers, setLoadingAllUsers] = useState(false)
+
+  const usersContainerRef = useRef<HTMLDivElement>(null)
+  const [containerHeight, setContainerHeight] = useState(88)
+
+  const gap3InPx = 12
 
   // API calls
   useEffect(() => {
@@ -59,7 +64,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex flex-col px-10 px-xs-5 py-5 bg-[#2F2F33] w-full h-full gap-5">
+    <div className="flex flex-col px-10 px-xs-5 pt-5 pb-1 bg-[#2F2F33] w-full h-full gap-5">
       {/* Skeleton Screen */}
       {loadingUser ? (
         <div className="flex items-center gap-4 animate-pulse">
@@ -178,12 +183,16 @@ export default function Home() {
           </div>
         ) : (
           !loadingAllUsers && (
-            <div className="flex flex-col rounded-2xl gap-3">
+            <div style={{height: containerHeight * 2}} className="flex flex-col rounded-2xl gap-3">
               {activeParamID == 0 && (
-                <div className="h-[164px] overflow-y-auto scrollbar-hide">
-                  {allUsers?.map((userData, id) => (
-                    <div key={id} className="flex border-1 border-gray-600 px-5 py-3 rounded-2xl mb-3 last:mb-0">
-                      <LogoWithTextAndButton 
+                <div style={{height: containerHeight * 2}} className="overflow-y-auto scrollbar-hide">
+                  {allUsers?.map((userData, index) => (
+                    <div 
+                      key={index} ref={usersContainerRef}
+                      onLoad={() => setContainerHeight(usersContainerRef.current?.offsetHeight! + gap3InPx)} 
+                      className="flex border-1 border-gray-600 px-5 py-3 rounded-2xl mb-3 last:mb-0"
+                    >
+                      <LogoWithTextAndButton
                         LogoImage={LogoThird} width={60} height={60} 
                         TextSection={
                           <div className="flex flex-col justify-center">
@@ -191,7 +200,7 @@ export default function Home() {
                             <p className="text-[#636363] text-[16px] text-xs-14 font-normal">{`${userData.TON} TON`}</p>
                           </div>
                         }
-                        Button={<p className="text-[#636363] text-[16px] text-xs-14 font-normal">#{id + 1}</p>} 
+                        Button={<p className="text-[#636363] text-[16px] text-xs-14 font-normal">#{index + 1}</p>} 
                       />
                     </div>
                   ))}
