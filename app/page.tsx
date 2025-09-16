@@ -59,7 +59,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex flex-col px-10 py-5 bg-[#2F2F33] w-full h-full gap-5">
+    <div className="flex flex-col px-10 px-xs-5 py-5 bg-[#2F2F33] w-full h-full gap-5">
       {/* Skeleton Screen */}
       {loadingUser ? (
         <div className="flex items-center gap-4 animate-pulse">
@@ -70,14 +70,14 @@ export default function Home() {
           </div>
           <div className="ml-auto h-8 w-20 bg-gray-600 rounded"></div>
         </div>
-      ): (
+      ) : (
         !loadingUser && (
           <LogoWithTextAndButton 
             LogoImage={LogoFirst} width={45} height={45} 
             TextSection={
               <div className="flex flex-col justify-center items-start">
-                <p className="text-white text-[16px] font-normal">{user?.Username || ""}</p>
-                <p className="text-[#636363] text-[12px] font-normal">Your rank #{user?.Rank || ""}</p>
+                <p className="text-white text-[16px] text-xs-14 font-normal">{user?.Username || ""}</p>
+                <p className="text-[#636363] text-[12px] text-xs-10 font-normal">Your rank #{user?.Rank || ""}</p>
               </div>
             }
             Button={<ButtonWithTextInTheBorder text={String(floatFormat(user?.Points || 0)) } textInTheBorder="Points"/>} 
@@ -87,10 +87,10 @@ export default function Home() {
       
       {/* Text area */}
       <div className="flex flex-col w-full h-max gap-2">
-        <p className="text-[#AAB8C2] text-[16px]">
+        <p className="text-[#AAB8C2] text-[16px] text-xs-14">
           {isExpanded ? TEXT_CONTENT.FULL : TEXT_CONTENT.SHORT}
         </p>
-        <ButtonFullWidth text={isExpanded ? "Read Less" : "Read More"} bgColor="bg-[#494949]" textColor="text-white" textSize="text-[14px]" onClick={() => setIsExpanded(!isExpanded)} />
+        <ButtonFullWidth text={isExpanded ? "Read Less" : "Read More"} bgColor="bg-[#494949]" textColor="text-white" textSize="text-[14px] text-xs-12" onClick={() => setIsExpanded(!isExpanded)} />
       </div>
 
       {/* Info card, Skeleton Screen */}
@@ -122,15 +122,15 @@ export default function Home() {
               <LogoWithTextAndButton 
                 LogoImage={LogoSecond} width={38} height={38} 
                 TextSection={
-                  <div className="flex flex-col justify-between items-start">
-                    <p className="text-[#636363] text-[12px] font-normal">Drop Points price:</p>
-                    <p className="text-white text-[16px] font-normal">0.01 TON</p>
+                  <div className="flex flex-col justify-between items-start gap-1">
+                    <p className="text-[#636363] text-[12px] text-xs-10 font-normal">Drop Points price:</p>
+                    <p className="text-white text-[16px] text-xs-14 font-normal">0.01 TON</p>
                   </div>
                 } 
                 Button={
                   <Link href="/buy">
                     <button className="bg-gray-600 rounded-xl text-[14px] font-bold text-white h-fit px-5 py-2">
-                      <p className=" text-[14px] font-bold">Buy</p>
+                      <p className=" text-[14px] text-xs-12 font-bold">Buy</p>
                     </button>
                   </Link>
                 } 
@@ -141,7 +141,7 @@ export default function Home() {
               {/* Second half of the card */}
               <p className=" w-full text-[10px] text-[#F5F8FA]">🔥 148.32K members & 223.42 purchased</p>
             </div>
-            <ButtonFullWidth text="Get drop points!" bgColor="bg-[#1D9BF0]" textColor="color-[#FFFFFF]" textSize="text-[14px]" />
+            <ButtonFullWidth text="Get drop points!" bgColor="bg-[#1D9BF0]" textColor="color-[#FFFFFF]" textSize="text-[14px] text-xs-12" />
           </div>
         )
       )}
@@ -187,11 +187,11 @@ export default function Home() {
                         LogoImage={LogoThird} width={60} height={60} 
                         TextSection={
                           <div className="flex flex-col justify-center">
-                            <p className="text-[#F5F8FA] text-[16px] font-normal">{userData.Username}</p>
-                            <p className="text-[#636363] text-[16px] font-normal">{`${userData.TON} TON`}</p>
+                            <p className="text-[#F5F8FA] text-[16px] text-xs-14 font-normal">{userData.Username}</p>
+                            <p className="text-[#636363] text-[16px] text-xs-14 font-normal">{`${userData.TON} TON`}</p>
                           </div>
                         }
-                        Button={<p className="text-[#636363] text-[16px] font-normal">#{id + 1}</p>} 
+                        Button={<p className="text-[#636363] text-[16px] text-xs-14 font-normal">#{id + 1}</p>} 
                       />
                     </div>
                   ))}

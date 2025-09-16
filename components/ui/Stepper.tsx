@@ -26,13 +26,13 @@ export default function Stepper({ min, max, step, amount, onAmountChange, setErr
     }, [amount])
 
     return (
-        <div className=" flex flex-row justify-between items-center bg-[#15202B] w-full px-12 py-2 rounded-xl">
-            <button className="flex items-center justify-center bg-[#AAB8C2] w-[24px] h-[24px] rounded-full text-[white]" onClick={() => onAmountChange(amount - step)}>
+        <div className=" flex flex-row justify-between items-center bg-[#15202B] w-full px-12 px-xs-2 py-2 rounded-xl">
+            <button className="flex items-center justify-center bg-[#AAB8C2] w-[24px] h-[24px] size-xs-18 rounded-full text-[white]" onClick={() => onAmountChange(amount - step)}>
                 <Minus width={24} height={24} color="black" />
             </button>
 
             <input 
-                className="text-[#F5F8FA] text-[24px] font-bold text-center border-nonebg-transparent w-[105px] sm:w-[70px] outline-none" 
+                className="text-[#F5F8FA] text-[24px] text-xs-14 font-bold text-center border-nonebg-transparent w-[105px] w-xs-60 sm:w-[70px] outline-none" 
                 value={floatFormat(amount)}
                 onChange={(e) => {
                     const value = e.target.value;
@@ -48,7 +48,7 @@ export default function Stepper({ min, max, step, amount, onAmountChange, setErr
                 min={0}
             />
 
-            <button className="flex items-center justify-center bg-[#AAB8C2] w-[24px] h-[24px] rounded-full text-[white]" onClick={() => onAmountChange(amount + step)}>
+            <button className="flex items-center justify-center bg-[#AAB8C2] w-[24px] h-[24px] size-xs-18 rounded-full text-[white]" onClick={() => onAmountChange(amount + step)}>
                 <Plus width={24} height={24} color="black" />
             </button>
         </div>

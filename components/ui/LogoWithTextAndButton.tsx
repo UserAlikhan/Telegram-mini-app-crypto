@@ -11,14 +11,16 @@ interface Props {
 
 export default function LogoWithTextAndButton({ LogoImage, width, height, TextSection, Button }: Props) {
     return (
-        <div className=" flex flex-row w-full justify-between" style={{height: height}}>
-          <div className="flex flex-row w-full h-full gap-3">
+        <div className="flex flex-row w-full justify-between logo-container-inner" style={{minHeight: height}}>
+          <div className="flex flex-row w-full h-full gap-3 xs:gap-1 logo-text-inner">
             {/* Avatar Image */}
-            <div style={{width: width, height: height}}>
+            <div className="flex-shrink-0" style={{width: width, height: height}}>
               <Logo logo={LogoImage} width={width} height={height} />
             </div>
             {/* Username and rank */}
-            {TextSection}
+            <div className="flex-1">
+              {TextSection}
+            </div>
           </div>
           {/* Button */}
           <div className="flex flex-row items-center h-full">

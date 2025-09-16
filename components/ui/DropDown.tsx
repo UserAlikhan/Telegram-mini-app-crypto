@@ -45,9 +45,9 @@ export default function DropDown({
             {/* Dropdown Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-center gap-2 bg-[#15202B] min-w-[100px] rounded-2xl py-5 px-4 text-white text-center border-none outline-none"
+                className="flex items-center justify-center gap-2 bg-[#15202B] w-full min-w-[100px] rounded-2xl py-5 px-4 text-white text-center border-none outline-none"
             >
-                <span className="text-[#AAB8C2] text-[16px] font-normal">
+                <span className="text-[#AAB8C2] text-[16px] text-xs-14 font-normal">
                     {selectedOption || placeholder}
                 </span>
                 <ChevronDown 

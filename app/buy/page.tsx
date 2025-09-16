@@ -35,17 +35,17 @@ export default function BuyPage() {
                     Set expiration date and time
                 </p>
 
-                <div className="flex flex-row w-full gap-2">
-                    <div className="flex-[0.3]">
+                <div className="flex flex-row w-full gap-2 logo-text-inner">
+                    <div className="flex-[0.3] width-xs-full">
                         <DropDown options={CURRENCIES} selectedOption={selectedOption} onOptionSelect={setSelectedOption} />
                     </div>
-                    <div className="flex-[0.7] bg-[#15202B] rounded-2xl py-5 px-4 flex items-center justify-center">
-                        <p className="text-center text-[16px] text-[#AAB8C2] font-normal">{floatFormat(amount)}</p>
+                    <div className="flex-[0.7] bg-[#15202B] rounded-2xl py-5 px-4 flex items-center justify-center width-xs-full">
+                        <p className="text-center text-[16px] text-xs-14 text-[#AAB8C2] font-normal">{floatFormat(amount)}</p>
                     </div>
                 </div>                
             </div>
 
-            <ButtonFullWidth text="Buy" bgColor="bg-[#1D9BF0]" textColor="text-[#F5F8FA]" textSize="text-[14px" />
+            <ButtonFullWidth text="Buy" bgColor="bg-[#1D9BF0]" textColor="text-[#F5F8FA]" textSize="text-[14px] text-xs-12" />
         </div>
     );
   }
